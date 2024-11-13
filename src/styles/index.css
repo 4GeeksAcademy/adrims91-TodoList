@@ -1,4 +1,9 @@
-
+.list-group-item .fa-x { 
+    display: none; 
+}
+.list-group-item:hover .fa-x { 
+    display: inline; 
+}/* O puedes usar inline-block si prefieres */
 /* 
 
     You can write your own styles here...
