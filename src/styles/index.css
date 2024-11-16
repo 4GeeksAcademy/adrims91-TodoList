@@ -2,10 +2,10 @@ body {
     background-color: aliceblue;
     
 }
-.list-group-item .fa-x { 
+.list-group-item .fa-solid { 
     display: none; 
 }
-.list-group-item:hover .fa-x { 
+.list-group-item:hover .fa-solid { 
     display: inline; 
 }
 /* 

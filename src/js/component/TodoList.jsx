@@ -1,67 +1,75 @@
-import React, { useState } from "react";
-
-//include images into your bundle
+import React, { useState } from 'react';
 
 
-//create your first component
 const TodoList = () => {
-	
-    const [inputValue, setInputValue] = useState("");
-    const [arrInput, setArrInput] = useState([])
-    const [doneTasks, setDoneTasks] = useState([])
 
+  const [task, setTask] = useState('')
+  const [arrayTodos, setArrayTodos] = useState([])
+  const [doneTask, setDoneTask] = useState([])
 
-    const addTask = () => {
-        if (inputValue === '') return;
-        setArrInput([...arrInput, inputValue]);
-        setDoneTasks([...doneTasks, false]);
-        setInputValue('');
+  const addTask = () => {
+    if (task !== ''){
+    const newArr = [...arrayTodos, task]
+    const newDoneTask = [...doneTask, {task, completed: false}]
+    setArrayTodos(newArr)
+    setDoneTask(newDoneTask)
+    setTask('')
     }
-    
-    
-    const deleteTask = (index) => {
-        const newArr = arrInput.filter((_, i) => i !== index);
-        const newDoneTasks = doneTasks.filter((_, i) => i !== index);
-        setArrInput(newArr);
-        setDoneTasks(newDoneTasks);
-    }
+  }
 
-    const closeTask = (index) => {
-        const newDoneTasks = [...doneTasks];
-        newDoneTasks[index] = !newDoneTasks[index];
-        setDoneTasks(newDoneTasks);
-    }
+  const deleteTask = (index) => {
+    const newArr = arrayTodos.filter((_, i) => i !== index);
+    const newDoneTask = doneTask.filter((_, i) => i !== index)
+    setArrayTodos(newArr);
+    setDoneTask(newDoneTask)
+  }
+
+  const triggerDoneButton = (index) => {
+    const newState = [...doneTask]
+    newState[index].completed = !newState[index].completed
+    setDoneTask(newState)
+  }
 
 
-    return (
-        <>
-        <div className="text-secondary">
-            <h1 className="text-center" style={{fontSize: '80px'}}>todos</h1>
-            <div className="container">
-                <ul className="list-group">
-                <input className="list-group-item" type="text" 
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter'){
-                        addTask();
-                    }
-                }}
-                placeholder="What needs to be done?"
-                />
-                {arrInput.map((item, index)=> (
-                    <li className="list-group-item" key={index}>
-                       <p onClick={() => closeTask(index)} className={`${doneTasks[index] === true ? 'text-success' : ''} fs-5`}>{item} {doneTasks[index] === true ? <i class="fa-solid fa-check"></i> : ''}  <i onClick={() => deleteTask(index)} className="fa-solid fa-x float-end"></i>
-                       </p>
-                    </li>
-                ))}
-                <li className="list-group-item">
-                    <label className={arrInput.length === 0 ? 'text-danger' : 'text-success'} style={{fontSize: '11px'}}>{arrInput.length === 0  ? 'There are no tasks, add a new task.' : `${arrInput.length} items left.`}</label>
-                </li>
-                </ul>
-            </div>
-        </div>
-        </>
-    )
+  return (
+    <>
+    <div className="container text-center">
+      <h1 className='p-3' style={{backgroundColor: 'cyan'}}>My tasks List</h1>
+      <ul className='list-group'>
+      <input 
+      className='text-center list-group-item'
+      type="text" 
+      value={task}
+      onChange={(e) => setTask(e.target.value)}
+      placeholder='Insert a new task'
+      onKeyDown={(e) => {
+        if (e.key === 'Enter'){
+          addTask();
+        }
+      }}
+      />
+      
+        {arrayTodos.map((item, index)=> (
+          <li 
+          className='list-group-item'
+          key={index}>
+            <i onClick={() => {
+              const deleteAnswer = prompt('Do you want to delete the task? Yes/No')
+              return deleteAnswer.toLowerCase() === 'yes' ? deleteTask(index) : ''
+            }} style={{float: 'left', cursor: 'pointer'}} className="fa-solid fa-minus"></i> <b className={doneTask[index].completed === true ? 'text-success' : ' text-danger'}>{item}</b> <i onClick={() => triggerDoneButton(index)} style={{float: 'right', cursor: 'pointer'}} className="fa-solid fa-check"></i>
+          </li>
+        ))}
+        <label 
+        className={`list-group-item ${arrayTodos.length === 0 ? 'text-danger' : 'text-success'}`} 
+        style={{fontSize: '11px'}}>
+          {arrayTodos.length === 0 ? 'No tasks, add a new task.' : `${arrayTodos.length} tasks.`}
+          
+        </label>
+      </ul>
+      </div>
+    </>
+  )
+
 }
+
 export default TodoList;
