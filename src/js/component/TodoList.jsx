@@ -29,7 +29,7 @@ const TodoList = () => {
     newState[index].completed = !newState[index].completed
     setDoneTask(newState)
   }
-
+ 
 
   return (
     <>
@@ -56,7 +56,7 @@ const TodoList = () => {
             <i onClick={() => {
               const deleteAnswer = prompt('Do you want to delete the task? Yes/No')
               return deleteAnswer.toLowerCase() === 'yes' ? deleteTask(index) : ''
-            }} style={{float: 'left', cursor: 'pointer'}} className="fa-solid fa-minus"></i> <b className={doneTask[index].completed === true ? 'text-success' : ' text-danger'}>{item}</b> <i onClick={() => triggerDoneButton(index)} style={{float: 'right', cursor: 'pointer'}} className="fa-solid fa-check"></i>
+            }} style={{float: 'left', cursor: 'pointer'}} className="fa-solid fa-minus"></i> <b style={{textTransform: 'capitalize'}} className={`${doneTask[index].completed === true ? 'text-success' : ' text-danger'}`}>{item.toLowerCase()}</b> <i onClick={() => triggerDoneButton(index)} style={{float: 'right', cursor: 'pointer'}} className="fa-solid fa-check"></i>
           </li>
         ))}
         <label 
