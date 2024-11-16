@@ -6,8 +6,7 @@ import ReactDOM from "react-dom/client";
 import "../styles/index.css";
 
 //import your own components
-import TodoList from "./component/TodoList";
+import App from "./component/app";
 
 //render your react application
-ReactDOM.createRoot(document.getElementById('app')).render(<TodoList/>);
-
+ReactDOM.createRoot(document.getElementById("app")).render(<App />);
