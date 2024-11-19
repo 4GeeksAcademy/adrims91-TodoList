@@ -22,6 +22,11 @@ const TodoItem = ({ item, index, deleteTask, triggerDoneButton }) => {
       <small style={{ fontSize: "10px" }} className="ms-3">
         Added on {item.date}
       </small>{" "}
+      {item.completed === true ? (
+        <small style={{ fontSize: "10px" }}>- Closed on {item.date}</small>
+      ) : (
+        ""
+      )}
       <i
         onClick={() => triggerDoneButton(index)}
         style={{ float: "right", cursor: "pointer" }}

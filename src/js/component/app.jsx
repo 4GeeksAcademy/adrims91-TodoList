@@ -4,6 +4,7 @@ import TodoItem from "./TodoList";
 const App = () => {
   const [task, setTask] = useState("");
   const [arrayTodos, setArrayTodos] = useState([]);
+  const [inputButtonStatus, setInputButtonStatus] = useState(false);
 
   const addTask = () => {
     if (task !== "") {
@@ -29,6 +30,10 @@ const App = () => {
     setArrayTodos(updateTodos);
   };
 
+  const updateInputStatus = () => {
+    setInputButtonStatus(!inputButtonStatus);
+  };
+
   return (
     <>
       <div className="container text-center">
@@ -36,18 +41,22 @@ const App = () => {
           My tasks List
         </h1>
         <ul className="list-group">
-          <input
-            className="text-center list-group-item"
-            type="text"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-            placeholder="Insert a new task"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                addTask();
-              }
-            }}
-          />
+          {inputButtonStatus ? (
+            <input
+              className="text-center list-group-item"
+              type="text"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+              placeholder="Insert a new task"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  addTask();
+                }
+              }}
+            />
+          ) : (
+            ""
+          )}
 
           {arrayTodos.map((item, index) => (
             <TodoItem
@@ -69,6 +78,11 @@ const App = () => {
               : `${arrayTodos.length} tasks.`}
           </label>
         </ul>
+      </div>
+      <div className="d-flex justify-content-center m-5">
+        <button onClick={updateInputStatus} className="btn btn-success ">
+          {inputButtonStatus ? "Close input box" : "Open input box"}
+        </button>
       </div>
     </>
   );
